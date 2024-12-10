@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Esercizio 1 verifica</title>
+        <style>
+            table, tr, th {
+                border: 1;
+                color:black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Lavoro di Francesco Dell'Aquila</h1>
+        <form id = "form">
+            <table>
+                <tr>
+                    <th>Inserisci il tuo nome</th>
+                    <th><input type = "text" id = "nome"></th>
+                </tr>
+                <tr> 
+                    <th>Inserisci le ore di frequenza:</th>
+                    <th><input type = "number" id = "ore" min = "0" max = "200"> </th>
+                </tr>
+                <tr>
+                    <td><button type = "bottun" onclick="NuovoStudente()">Aggiungi iscrizione</button></td>
+                    <td><button type = "bottun" onclick = "MostraIscrizioni()">Mostra iscrizioni</button></td>
+                    <td><button type = "bottun" onclick = "controllo()">Mostra iscrizioni tramite prompt</button></td>
+                </tr>
+            </table>
+        </form>
+
+        <div class = "stampa"></div>
+    </body>
+    <script>
+        //dichiaro array
+        //var array = new Array ()
+        var array = []
+
+        //inserimento dati dello studente
+        function NuovoStudente (){
+            alert("Ciao")
+            var nome = document.getElementById("nome").value
+            var ore = document.getElementById("ore").value
+
+            if (nome === ""){
+                alert("Nessun nome inserito")
+                return
+            }
+
+            if (ore < 0){
+                alert("Monte ore inserito negativo")
+            } else if (ore > 200){
+                alert("Monte ore non valido, deve essere compreso tra 0 e 200")
+                return
+            }
+
+            costo = sconti (ore)
+            array.push({nomeStudente: "nome", numeroOre: ore, totale: costo})
+            alert("dati inseriti corretti")
+            var nome = document.getElementById("nome").value = ""
+            var ore = document.getElementById("ore").value = ""
+            alert("nome: "+nome+"\tore: "+ore+"\ttotale: € "+costo)
+        }
+
+        function sconti (ore) {
+            var costo = 15
+            if (ore > 0 && ore < 11){
+                return costo * ore
+            } else if (ore > 10 && ore < 20) {
+                sconto = (costo / 100) * 5
+                return (costo - sconto) * ore
+            } else {
+                sconto = (costo / 100) * 10
+                return (costo - sconto) * ore
+            }
+        }
+
+        function controllo () {
+            for (let studente of array){
+                alert("Nome: "+studente.nomeStudente+"\tOre: "+studente.numeroOre+"\tTotale: €"+studente.totale)
+            }
+        }
+
+        //stampa 
+        function MostraIscrizioni () {
+            let tabella = `<table>
+                                <tr>
+                                    <th>nome studente</th>
+                                    <th>monte ore</th>
+                                    <th>totale (€)</th>
+                                </tr>`
+
+            for (let studente of array){
+                tabella += `<tr>
+                                <th>${studente.nomeStudente}</th>
+                                <th>${studente.numeroOre}</th>
+                                <th>${studente.totale}</th>
+                            </tr>`;
+            }
+
+            tabella += `</table>`
+            document.getElementById("stampa").innerHTML = tabella
+        }
+    </script>
+</html>

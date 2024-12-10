@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio 2</title>
+</head>
+<script>
+    var scelta = 0
+    var totale = 0
+    do {
+        scelta = parseInt(prompt("Menu:\n 0 - esci\n1 - aggiungi nuove vendite\n2 - valore totale cassa\nScelta: "))
+        switch (scelta) {
+            case 0:
+                alert("Sei uscito dal programma")
+            case 1:
+                let vendita = aggiungiVendite()
+                alert("La venditra giornaliera di oggi ha un guadagno di €"+vendita_giornaliera)
+            case 2:
+                let valCassa = totale ()
+                alert("Il totale degli incassi è di €"+valCassa)
+            default:
+                alert("Scelta non valida")
+        }
+    } while (scelta != 0);
+
+    function aggiungiVendite () {
+        var vendita_giornaliera = 0
+
+        do {
+            var cassa_iniziale = parseInt(prompt("Inserisci il valore iniziale: "))
+            if (cassa_iniziale < 0) {
+                alert("Numero inserito non valido, riprova")
+            }
+        } while (cassa_iniziale < 0)
+
+        do {
+            num = parseInt(prompt("Quante vendite vuole inserire?"))
+            if (num < 0) {
+                alert("Numero inserito non valido, riprova")
+            }
+        } while (num < 0)
+
+        for (let i = 0; i < num; i++){
+            let vendita = parseDouble(prompt("Inserisci l'importo "+(i+1)+":"))
+            if (vendita < 0){
+                alert("Vendita non valida, reinserisci.")
+                i--;
+            } else {
+                vendita_giornaliera += vendita
+            }
+        }
+
+        totale += (vendita_giornaliera + cassa_iniziale)
+        return (vendita_giornaliera + cassa_iniziale);
+    }
+
+    function totale () {
+       return totale
+    }
+</script>
+</html>
