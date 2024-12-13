@@ -1,0 +1,108 @@
+<!--ERRORI CHE HO TROVATO
+    1. NEL DIV DELLA STAMPA AVEVO MESSO CLASS AL POSTO DI ID, QUESTO NON PERMETTEVA LA STAMPA
+    2. MI SONO DIMENTICATO DEL RETURN IN CASO IL VALORE SIA NEGATIVO
+    3. NELL'AGGIUNTA DEI DATI, CON IL NOME L'HO MESSO TRA VIRGOLETTE, QUESTO NON LO FA LEGGERE-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Esercizio 1 verifica</title>
+        <style>
+            table, tr, th, td {
+                border: 1px;
+                color:black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Lavoro di Francesco Dell'Aquila</h1>
+            <table>
+                <tr>
+                    <th>Inserisci il tuo nome</th>
+                    <th><input type = "text" id = "nome"></th>
+                </tr>
+                <tr> 
+                    <th>Inserisci le ore di frequenza:</th>
+                    <th><input type = "number" id = "ore" min = "0" max = "200"> </th>
+                </tr>
+                <tr>
+                    <td><button onclick="NuovoStudente()">Aggiungi iscrizione</button></td>
+                    <td><button onclick = "MostraIscrizioni()">Mostra iscrizioni</button></td>
+                </tr>
+            </table>
+        <div id = "stampa"></div>
+    </body>
+    <script>
+        //dichiaro array
+        //var array = new Array ()
+        var array = []
+
+        //inserimento dati dello studente
+        function NuovoStudente (){
+            //alert("Ciao")
+            var nome = document.getElementById("nome").value
+            var ore = document.getElementById("ore").value
+
+            if (nome === ""){
+                alert("Nessun nome inserito")
+                return
+            }
+
+            if (ore < 0){
+                alert("Monte ore inserito negativo")
+                return //non c'era e quindi lo accettava
+            } else if (ore > 200){
+                alert("Monte ore non valido, deve essere compreso tra 0 e 200")
+                return
+            }
+
+            costo = sconti (ore)
+            array.push({nomeStudente: nome, numeroOre: ore,totale: costo})
+            alert("dati inseriti corretti")
+            alert("nome: "+nome+"\tore: "+ore+"\ttotale: € "+costo)
+            nome = document.getElementById("nome").value = ""
+            ore = document.getElementById("ore").value = ""
+        }
+
+        function sconti (ore) {
+            var costo = 15
+            if (ore > 0 && ore < 11){
+                return costo * ore
+            } else if (ore > 10 && ore < 20) {
+                sconto = (costo / 100) * 5
+                return (costo - sconto) * ore
+            } else {
+                sconto = (costo / 100) * 10
+                return (costo - sconto) * ore
+            }
+        }
+
+        function controllo () {
+            for (let studente of array){
+                alert("Nome: "+studente.nomeStudente+"\tOre: "+studente.numeroOre+"\tTotale: €"+studente.totale)
+            }
+        }
+
+        //stampa 
+        function MostraIscrizioni () {
+            let tabella = `<table>
+                                <tr>
+                                    <th>nome studente</th>
+                                    <th>monte ore</th>
+                                    <th>totale (€)</th>
+                                </tr>`
+
+            for (let studente of array){
+                tabella += `<tr>
+                                <th>${studente.nomeStudente}</th>
+                                <th>${studente.numeroOre}</th>
+                                <th>${studente.totale}</th>
+                            </tr>`;
+            }
+
+            tabella += `</table>`
+            document.getElementById("stampa").innerHTML = tabella
+        }
+    </script>
+</html>
