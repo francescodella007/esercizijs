@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gestione della spese di un viaggio</title>
+    </head>
+    <body>
+    </body>
+    <script>
+        let totale = 0;
+
+        while (true) {
+            let scelta = parseInt(prompt("Menu\n0. esci\n1. aggiungi chiamata\n2. vedi budget\nScelta: "));
+            switch(scelta) {
+                case 0:
+                    alert("Sei uscito dal programma");
+                    break;
+                case 1:
+                    aggiungiChiamata();
+                    break; 
+                case 2:
+                    vediBudget();
+                    break; 
+                default:
+                    alert("Scelta non valida. Riprova."); 
+                    continue;
+            }
+            if (scelta === 0) break; 
+        }
+
+        function aggiungiChiamata() {
+            let budget = parseFloat(prompt("Inserisci il tuo budget"));
+            if (budget <= 0) {
+                alert("Inserisci un valore valido per le entrate.");
+                return;
+            }
+
+            let speseTot = 0;
+            while (true) {
+                let spese = parseFloat(prompt("Inserisci la spesa fissa (0 per terminare):"));
+                if (spese < 0) {
+                    alert("Inserisci un valore valido maggiore o uguale a 0.");
+                    continue;
+                }
+
+                if (spese === 0) {
+                    break;
+                }
+
+                speseTot += spese;
+            }
+            totale = budget - speseTot; 
+            alert(`Budget aggiornato.\nVengono estratti dal tuo budget: € ${speseTot}\nBudget aggiornato: € ${totale}`);
+        }
+
+        function vediBudget() {
+            alert(`Il tuo budget è: €, ${totale}`);
+        }
+    </script>
+</html>
