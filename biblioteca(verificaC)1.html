@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>verifica C</title>
+    </head>
+    <body>
+        <form id="form">
+            <table>
+                <tr>
+                    <th>ID utente</th>
+                    <th><input type="number" id="ID" min="0"></th>
+                </tr>
+                <tr>
+                    <th>Titolo del libro</th>
+                    <th><input type="text" id="titoloLibro"></th>
+                </tr>
+                <tr>
+                    <th>Giorni di prenotazione</th>
+                    <th><input type="number" id="tempo" min="0"></th>
+                </tr>
+                <tr>
+                    <td><button type="button" onclick="addBooking()">Aggiungi prenotazione</button></td>
+                    <td><button type="button" onclick="renderTable()">Mostra tabella</button></td>
+                    <td><button type="button" onclick="updateSummary()">Mostra prenotazioni</button></td>
+                </tr>
+            </table>
+        </form>
+        <div id="stampa"></div>
+    </body>
+    <script>
+        var array = [];
+
+        function addBooking() {
+            let idUtente = document.getElementById("ID").value; 
+            let titolo = document.getElementById("titoloLibro").value;
+            let giorni = parseInt(document.getElementById("tempo").value);
+
+            if (idUtente === "") { 
+                alert("Nessun id utente inserito o valido, riprova");
+                return;
+            }
+
+            if (titolo === "") { 
+                alert("Nessun nome inserito");
+                return;
+            }
+            if (giorni == "") { 
+                alert("Nessun numero di giorni inserito");
+                return;
+            }
+            if (giorni < 1) {
+                alert("Numero di giorni inserito non valido, deve essere da almeno un giorno");
+                return;
+            }
+
+            array.push({nomeUtente: idUtente, titoloLibro: titolo, giorniPrenotazione: giorni}); // Corretto il nome della proprietà
+            alert("Prenotazione aggiunta.")
+            document.getElementById("ID").value = ""; 
+            document.getElementById("titoloLibro").value = ""; 
+            document.getElementById("tempo").value = ""; 
+       }
+
+        function renderTable(){
+            if (array.length === 0) {
+            document.getElementById("stampa").innerHTML = "<p>Nessuna iscrizione presente.</p>";
+            return;
+            }
+
+            let tabella = `<table>
+                                <tr>
+                                    <th>ID UTENTE</th>
+                                    <th>Titolo del libro</th>
+                                    <th>Giorni di prenotazione</th>
+                                </tr>`;
+            for (let utente of array) {
+                tabella += `<tr>
+                                <th>${utente.nomeUtente}</th>
+                                <th>${utente.titoloLibro}</th>
+                                <th>${utente.giorniPrenotazione}</th>
+                            </tr>`;
+            }
+
+            tabella += `</table>`;
+            document.getElementById("stampa").innerHTML = tabella;
+        }
+
+        function updateSummary(){
+            if (array.length === 0) {
+                alert("Nessuna prenotazione presente.");
+                return;
+            }
+
+            let dati = "";
+            for (let utente of array) {
+                dati += `Nome utente: ${utente.nomeUtente}\nGiorni di prenotazione: ${utente.giorniPrenotazione}\n\n`;
+            }
+            alert(dati);
+        }
+    </script>
+</html>
