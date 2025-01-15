@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <form id="form">
+            <table>
+                <tr>
+                    <th>Codice Prenotazione</th>
+                    <th><input type="text" id="codice"></th>
+                </tr>
+                <tr>
+                    <th>Numero di biglietti</th>
+                    <th><input type="number" id="numBiglietti" min="0"></th>
+                </tr>
+                <tr>
+                    <td><button type="button" onclick="aggiungi()">Aggiungi prenotazione</button></td>
+                    <td><button type="button" onclick="mostra()">Mostra tabella</button></td>
+                </tr>
+            </table>
+        </form>
+        <div id="stampa"></div>
+    </body>
+    <script>
+        var array = [];
+
+        function aggiungi() {
+            let codicePrenotazione = document.getElementById("codice").value;
+            let numeroBiglietti = parseInt(document.getElementById("numBiglietti").value);
+
+            if (codicePrenotazione === ""){
+                alert("Nessun codice inserito, riprova")
+                return
+            }
+            if (numeroBiglietti < 1){
+                alert("Numero inserito di biglietti non valido, riprova")
+                return
+            }
+            if (isNaN(numeroBiglietti)){
+                alert("Nessun numero di biglietti inserito")
+                return
+            }
+
+            prezzoBiglietti = sconto(numeroBiglietti)
+            array.push({codice: codicePrenotazione, numBiglietti: numeroBiglietti, biglietti: prezzoBiglietti}); // Corretto il nome della proprietà
+            alert("Prenotazione aggiunta.")
+            document.getElementById("codice").value = ""; 
+            document.getElementById("numBiglietti").value = ""; 
+       }
+
+       function sconto (numeroBiglietti){
+            let costoBiglietto = 20
+            let totale = 0
+
+            if (numeroBiglietti < 5){
+                return (numeroBiglietti * costoBiglietto)
+            } else if (5 < numeroBiglietti < 10){
+                let prezzo = numeroBiglietti *  costoBiglietto
+                let sconto = (prezzo / 100) * 10
+                return (prezzo - sconto)
+            } else {
+                let prezzo = numeroBiglietti *  costoBiglietto
+                let sconto = (prezzo / 100) * 20
+                return (prezzo - sconto)
+            }
+
+       }
+
+        function mostra(){
+            if (array.length === 0) {
+            document.getElementById("stampa").innerHTML = "<p>Nessuna iscrizione presente.</p>";
+            return;
+            }
+
+            let tabella = `<table>
+                                <tr>
+                                    <th>ID UTENTE</th>
+                                    <th>Numero di biglietti</th>
+                                    <th>Costo biglietti</th>
+                                </tr>`;
+            for (let utente of array) {
+                tabella += `<tr>
+                                <th>${utente.codice}</th>
+                                <th>${utente.numBiglietti}</th>
+                                <th>${utente.biglietti}</th>
+                            </tr>`;
+            }
+
+            tabella += `</table>`;
+            document.getElementById("stampa").innerHTML = tabella;
+        }
+
+        function updateSummary(){
+            if (array.length === 0) {
+                alert("Nessuna prenotazione presente.");
+                return;
+            }
+
+            let dati = "";
+            for (let utente of array) {
+                dati += `Id utente: ${utente.codice}\nNumero di biglietti: ${utente.numBiglietti}\Prezzo biglietti: ${utente.biglietti}`;
+            }
+            alert(dati);
+        }
+    </script>
+</html>
