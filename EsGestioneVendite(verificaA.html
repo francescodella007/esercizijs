@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        
+    </body>
+    <script>
+        var scelta = 0
+        var valoreCassa = 0
+
+        do {
+            var uno = parseInt(prompt("Inserisci il valore di cassa iniziale"))
+            if (uno < 0){
+                alert("Cifra inserita non valida, riprova")
+            }
+        } while (uno < 0)
+
+        valoreCassa += uno
+
+        do {
+            scelta = parseInt(prompt("Menu\n0. esci\n1. inserisci nuova vendita\n2. valore totale cassa\nScelta: "))
+            switch (scelta){
+                case 0:
+                    scelta = 0
+                    break
+                case 1:
+                    nuovaCassa()
+                    break
+                case 2:
+                    visualizzaCassa()
+                    break
+                default:
+                    alert("Scelta non valida")
+            }
+        } while (scelta != 0);
+           
+        function nuovaCassa(){
+            do {
+                let inizio = parseInt(prompt("Inserisci il valore di cassa"))
+                if (inizio < 0){
+                    alert("Cifra inserita non valida, riprova")
+                }
+            } while (inizio < 0)
+
+            valoreCassa += inizio
+            do {
+                let conta = parseInt(prompt("Quanti incassi devi inserire: "))
+                if (conta < 1){
+                    alert("Cifra inserita non valida, riprova")
+                }
+            } while (conta < 1)
+
+            var contaValore = 0
+            for (var i = 0; i < conta; i++){
+                do {
+                    let incasso = parseInt(alert("Inserisci il valore di cassa"))
+                    if (incasso < 0){
+                        alert("Incasso inserito non valido")
+                    }
+                } while (incasso < 0);
+                valoreCassa += incasso
+                contaValore += incasso
+            }
+
+            alert("L'incasso di oggi è di € "+(contaValore+inizio))
+        }
+
+        function visualizzaCassa(){
+            alert("Il risultato della cassa è di € "+valoreCassa)
+        }
+    </script>
+</html>
