@@ -31,6 +31,7 @@
     </body>
     <script>
         var array = [];
+        var riepilogo = []
 
         function addBooking() {
             let idUtente = document.getElementById("ID").value; 
@@ -92,11 +93,33 @@
                 return;
             }
 
-            let dati = "";
-            for (let utente of array) {
-                dati += `Nome utente: ${utente.nomeUtente}\nGiorni di prenotazione: ${utente.giorniPrenotazione}\n\n`;
+            let tabella2 = `<table>
+                                <tr>
+                                    <th>ID UTENTE</th>
+                                    <th>Giorni di prenotazione</th>
+                                </tr>`;
+
+            var trovato = false
+            for (let dato of array){
+                if (nomeUtente == dato.nomeUtente){
+                    dato.giorniPrenotazione += giorniPrenotazione
+                    trovato = true
+                }
             }
-            alert(dati);
+
+            if (trovato == false) {
+                riepilogo.push({nomeUtente: idUtente, giorniPrenotazione: giorni})
+            }
+
+            for (dato of riepilogo){
+                tabella2 += `<tr>
+                                <th>${dato.nomeUtente}</th>
+                                <th>${dato.giorniPrenotazione}</th>
+                            </tr>`;
+            }
+            tabella2 += `</table>`;
+            document.getElementById("stampa").innerHTML = tabella2;
+    
         }
     </script>
 </html>
