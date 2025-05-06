@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>esOggetti_calendario</title>
+</head>
+<body>
+    <button onclick="dataOggi()">Mostra data di oggi</button><br />
+    <button onclick="calendario()">Trova giorno della settimana</button>
+
+    <div id="output"></div>
+
+    <script>
+        function dataOggi() {
+            let dataDiOggi = new Date();
+            let giorno = dataDiOggi.getDate();
+            let mese = dataDiOggi.getMonth() + 1;
+            let anno = dataDiOggi.getFullYear();
+            alert("Oggi è il " + giorno + "/" + mese + "/" + anno);
+        }
+
+        function calendario() {
+            let data =  prompt("Inserisci una data e ti dico che settimana è (es 02/12):");
+        }
+    </script>
+</body>
+</html>
