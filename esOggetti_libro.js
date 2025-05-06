@@ -8,4 +8,4 @@ const libro = {
     }
   };
   
-alert(libro.descrizione());
+console.log(libro.descrizione());
