@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>esOggetti_calendario</title>
+</head>
+<body>
+    <button onclick="dataScadenza()">Imposta data di scadenza</button>
+
+    <div id="output"></div>
+
+    <script>
+        let dataDiOggi = new Date();
+        function dataScadenza () {
+            while (true) {
+                let giorno = prompt("Inserisci il giorno: ");
+                if (giorno < 1 || giorno > 31) {
+                    alert("Il giorno inserito non è valido, riprova");
+                } else {
+                    break
+                }
+            }
+            while (true) {
+                let mese = prompt("Inserisci il mese:");
+                if (mese < 1 || mese > 12 || mese < (dataDiOggi.getMonth() + 1)) {
+                    alert("Il mese inserito non è valido, riprova");
+                } else {
+                    break
+                }
+            }
+            let dataGiorno2, dataMese2 = dataOggi();
+            calcolaGiorni(giorno, mese, dataGiorno2, dataMese2);
+        }
+
+        function calcolaGiorni(dataGiorno1, dataMese1, dataGiorno2, dataMese2) {
+            let mesi = dataMese2 - dataMese1;
+            let giorni = dataGiorno2 - dataGiorno1;
+            alert("Mancano " + mesi + " mesi e " + giorni + " giorni alla scadenza");
+        }
+
+        function dataOggi(){
+            let giorno = dataDiOggi.getDate();
+            let mese = dataDiOggi.getMonth() + 1;
+            dataDiOggi = giorno + "/" + mese;
+            return giorno,mese;
+        }
+    </script>
+</body>
+</html>
