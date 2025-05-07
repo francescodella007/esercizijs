@@ -21,7 +21,59 @@
         }
 
         function calendario() {
-            let data =  prompt("Inserisci una data e ti dico che settimana è (es 02/12):");
+            let bisestile = false;
+            let data;
+            while (true){
+                let anno = prompt("Inserisci l'anno della data da cercare (es. 2023): ");
+                if (anno > 0 && length(anno) == 4){
+                    if ((anno % 4 === 0 && anno % 100 !== 0) || anno % 400 === 0){
+                        bisestile = true;
+                    }
+
+                    let mes = prompt("Inserisci il mese (es. 04): ");
+                    let mese = String(mese).padStart(2, '0');
+                    if (mese > 0 && mese < 13){
+
+                        let giorn = prompt("Inserisci il giorno (es. 23): ");
+                        let giorno = String(giorn).padStart(2, '0');
+
+                        if (bisestile == true && mese == "02"){
+                            if (giorno > 0 && giorno < 30){
+                                data = giorno + "/"+ mese + "/" + anno;
+                            } else {
+                                alert("Giorno inserito non valido");
+                            }
+                        } else if (bisestile == false && mese == "02") {
+                            if (giorno > 0 && giorno < 29){
+                                data = giorno + "/"+ mese + "/" + anno;
+                            } else {
+                                alert("Giorno inserito non valido")
+                            }
+                        } else if (mese == "11" || mese == "04" || mese == "06" || mese == "09") {
+                            if (giorno > 0 && giorno < 31){
+                                data = giorno + "/"+ mese + "/" + anno;
+                            } else {
+                                alert("Giorno inserito non valido");
+                            }
+                        } else {
+                            if (giorno > 0 && giorno < 30){
+                                data = giorno + "/"+ mese + "/" + anno;
+                            } else {
+                                alert("Giorno inserito non valido");
+                            }
+                        }
+                    } else {
+                        alert("Mese inserito non valido");
+                    }
+                } else {
+                    alert("Anno inserito non valido");
+                }
+            }
+           
+            alert("Data inserita valida");
+            const giorniSettimana = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+            let giornoSettimana = giorniSettimana[data.getDay()];
+            alert("La data " + giorno + "/" + mese + "/" + anno + " è " + giornoSettimana);
         }
     </script>
 </body>
