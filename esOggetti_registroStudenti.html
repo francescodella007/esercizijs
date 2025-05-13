@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <title>esOggetti_registroStudenti</title>
+</head>
+<body>
+    <h1>Media voti studenti</h1>
+
+    <script>
+        const studenti = [
+            { nome: "Mario", cognome: "Rossi", voto: 8 },
+            { nome: "Luca", cognome: "Bianchi", voto: 7 },
+            { nome: "Anna", cognome: "Verdi", voto: 9 }
+        ];
+
+        function calcolaMedia(studenti) {
+            if (studenti.length === 0) return 0;
+            const somma = studenti.reduce((acc, studente) => acc + studente.voto, 0);
+            return somma / studenti.length;
+        }
+
+        let media = calcolaMedia(studenti);
+        alert("La media dei voti è: "+media);
+    </script>
+</body>
+</html>
