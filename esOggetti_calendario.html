@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>esOggetti_calendario</title>
 </head>
 <body>
@@ -21,60 +21,55 @@
         }
 
         function calendario() {
-            let bisestile = false;
-            let data;
-            while (true){
-                let anno = prompt("Inserisci l'anno della data da cercare (es. 2023): ");
-                if (anno > 0 && length(anno) == 4){
-                    if ((anno % 4 === 0 && anno % 100 !== 0) || anno % 400 === 0){
-                        bisestile = true;
-                    }
+    let bisestile = false;
+    let anno, mese, giorno;
+    let validDate = false;
 
-                    let mes = prompt("Inserisci il mese (es. 04): ");
-                    let mese = String(mese).padStart(2, '0');
-                    if (mese > 0 && mese < 13){
-
-                        let giorn = prompt("Inserisci il giorno (es. 23): ");
-                        let giorno = String(giorn).padStart(2, '0');
-
-                        if (bisestile == true && mese == "02"){
-                            if (giorno > 0 && giorno < 30){
-                                data = giorno + "/"+ mese + "/" + anno;
-                            } else {
-                                alert("Giorno inserito non valido");
-                            }
-                        } else if (bisestile == false && mese == "02") {
-                            if (giorno > 0 && giorno < 29){
-                                data = giorno + "/"+ mese + "/" + anno;
-                            } else {
-                                alert("Giorno inserito non valido")
-                            }
-                        } else if (mese == "11" || mese == "04" || mese == "06" || mese == "09") {
-                            if (giorno > 0 && giorno < 31){
-                                data = giorno + "/"+ mese + "/" + anno;
-                            } else {
-                                alert("Giorno inserito non valido");
-                            }
-                        } else {
-                            if (giorno > 0 && giorno < 30){
-                                data = giorno + "/"+ mese + "/" + anno;
-                            } else {
-                                alert("Giorno inserito non valido");
-                            }
-                        }
-                    } else {
-                        alert("Mese inserito non valido");
-                    }
-                } else {
-                    alert("Anno inserito non valido");
-                }
-            }
-           
-            alert("Data inserita valida");
-            const giorniSettimana = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
-            let giornoSettimana = giorniSettimana[data.getDay()];
-            alert("La data " + giorno + "/" + mese + "/" + anno + " è " + giornoSettimana);
+    while (!validDate) {
+        anno = parseInt(prompt("Inserisci l'anno della data da cercare (es. 2023): "));
+        if (isNaN(anno) || anno <= 0 || anno >= 2100) {
+            alert("Anno inserito non valido");
+            continue;
         }
+
+        bisestile = (anno % 4 === 0 && anno % 100 !== 0) || anno % 400 === 0;
+
+        mese = parseInt(prompt("Inserisci il mese (es. 4): "));
+        if (isNaN(mese) || mese <= 0 || mese >= 13) {
+            alert("Mese inserito non valido");
+            continue;
+        }
+
+        giorno = parseInt(prompt("Inserisci il giorno (es. 23): "));
+        if (isNaN(giorno) || giorno <= 0) {
+            alert("Giorno inserito non valido");
+            continue;
+        }
+
+        let maxDaysInMonth = 0;
+        if (mese === 2) {
+            maxDaysInMonth = bisestile ? 29 : 28;
+        } else if ([4, 6, 9, 11].includes(mese)) {
+            maxDaysInMonth = 30;
+        } else {
+            maxDaysInMonth = 31;
+        }
+
+        if (giorno > maxDaysInMonth) {
+            alert("Giorno inserito non valido per il mese e anno specificati");
+            continue;
+        }
+
+        validDate = true; 
+    }
+
+    let dataInserita = new Date(anno, mese - 1, giorno);
+
+    const giorniSettimana = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+    let giornoSettimana = giorniSettimana[dataInserita.getDay()];
+
+    alert("La data " + giorno + "/" + mese + "/" + anno + " è " + giornoSettimana);
+}
     </script>
 </body>
 </html>
